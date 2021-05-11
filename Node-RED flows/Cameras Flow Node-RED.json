@@ -1,0 +1,2348 @@
+[
+    {
+        "id": "c729a231.46e68",
+        "type": "tab",
+        "label": "Cameras Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a0bb3e4b.5708d",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "d0fd70df.7275c"
+            ]
+        ]
+    },
+    {
+        "id": "a31872d4.9b215",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.101/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 60,
+        "wires": [
+            [
+                "1c44e440.b30dcc",
+                "71bd6044.791278"
+            ]
+        ]
+    },
+    {
+        "id": "1c44e440.b30dcc",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d0fd70df.7275c",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam1/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 60,
+        "wires": [
+            [
+                "eeff2e44.9eba6"
+            ]
+        ]
+    },
+    {
+        "id": "eeff2e44.9eba6",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 60,
+        "wires": [
+            [
+                "a31872d4.9b215"
+            ]
+        ]
+    },
+    {
+        "id": "71bd6044.791278",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera1",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera1</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 880,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "40a6cd8e.a589f4",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "6cd4ee10.764e5"
+            ]
+        ]
+    },
+    {
+        "id": "f07f674.0d93798",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.102/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 180,
+        "wires": [
+            [
+                "6422bc57.a31e34",
+                "58096c65.e4fd04"
+            ]
+        ]
+    },
+    {
+        "id": "6422bc57.a31e34",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6cd4ee10.764e5",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam2/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 180,
+        "wires": [
+            [
+                "643341e.64810c"
+            ]
+        ]
+    },
+    {
+        "id": "643341e.64810c",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 180,
+        "wires": [
+            [
+                "f07f674.0d93798"
+            ]
+        ]
+    },
+    {
+        "id": "58096c65.e4fd04",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera2",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera2</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 880,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dc48a904.2973e8",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 280,
+        "wires": [
+            [
+                "274d388a.7a73d8"
+            ]
+        ]
+    },
+    {
+        "id": "cb0c129e.d01fc",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.103/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 280,
+        "wires": [
+            [
+                "a891fb80.0204e8",
+                "d917087c.f788b8"
+            ]
+        ]
+    },
+    {
+        "id": "a891fb80.0204e8",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "274d388a.7a73d8",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam3/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 280,
+        "wires": [
+            [
+                "c0320ca0.1cdf"
+            ]
+        ]
+    },
+    {
+        "id": "c0320ca0.1cdf",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 280,
+        "wires": [
+            [
+                "cb0c129e.d01fc"
+            ]
+        ]
+    },
+    {
+        "id": "d917087c.f788b8",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera3",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera3</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 880,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f121ffd0.18cd2",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 380,
+        "wires": [
+            [
+                "67f4724d.906dac"
+            ]
+        ]
+    },
+    {
+        "id": "55bc06fb.c00ed8",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.104/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 380,
+        "wires": [
+            [
+                "14346562.3f67bb",
+                "844a39ab.a348d8"
+            ]
+        ]
+    },
+    {
+        "id": "14346562.3f67bb",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "67f4724d.906dac",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam4/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 380,
+        "wires": [
+            [
+                "362daa8c.a4db06"
+            ]
+        ]
+    },
+    {
+        "id": "362daa8c.a4db06",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 380,
+        "wires": [
+            [
+                "55bc06fb.c00ed8"
+            ]
+        ]
+    },
+    {
+        "id": "844a39ab.a348d8",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera4",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera4</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 880,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33e8d25d.97e9ae",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "0 9-18 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 480,
+        "wires": [
+            [
+                "139a4dda.1228c2"
+            ]
+        ]
+    },
+    {
+        "id": "83803a53.dbe248",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.105/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 480,
+        "wires": [
+            [
+                "7c88e99a.442a18",
+                "bff0fc1.16cee"
+            ]
+        ]
+    },
+    {
+        "id": "7c88e99a.442a18",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "139a4dda.1228c2",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam5/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 480,
+        "wires": [
+            [
+                "f874512e.d5117"
+            ]
+        ]
+    },
+    {
+        "id": "f874512e.d5117",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 480,
+        "wires": [
+            [
+                "83803a53.dbe248"
+            ]
+        ]
+    },
+    {
+        "id": "bff0fc1.16cee",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera5",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera5</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 880,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "693e218f.4765d",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.106/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 600,
+        "wires": [
+            [
+                "32cdaffd.a2b37",
+                "a9a69df8.e3668"
+            ]
+        ]
+    },
+    {
+        "id": "32cdaffd.a2b37",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "30e4e6d6.fda5ba",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam6/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 600,
+        "wires": [
+            [
+                "d9f5ddb7.df352"
+            ]
+        ]
+    },
+    {
+        "id": "d9f5ddb7.df352",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 600,
+        "wires": [
+            [
+                "693e218f.4765d"
+            ]
+        ]
+    },
+    {
+        "id": "a9a69df8.e3668",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera6",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera6</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 880,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a4926521.525108",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.107/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 700,
+        "wires": [
+            [
+                "f6af419e.eea75",
+                "6192dff7.8f1a1"
+            ]
+        ]
+    },
+    {
+        "id": "f6af419e.eea75",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "5ba95813.cd01b8",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam7/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 700,
+        "wires": [
+            [
+                "c1439cd8.ca63e"
+            ]
+        ]
+    },
+    {
+        "id": "c1439cd8.ca63e",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 700,
+        "wires": [
+            [
+                "a4926521.525108"
+            ]
+        ]
+    },
+    {
+        "id": "6192dff7.8f1a1",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera7",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera7</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 880,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "31f9b3a.b583b4c",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.108/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 800,
+        "wires": [
+            [
+                "9c9a5cc4.0d2d6",
+                "4dff423f.59469c"
+            ]
+        ]
+    },
+    {
+        "id": "9c9a5cc4.0d2d6",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "84617638.459ad8",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam8/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 800,
+        "wires": [
+            [
+                "d6cdbf9c.9664a"
+            ]
+        ]
+    },
+    {
+        "id": "d6cdbf9c.9664a",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 800,
+        "wires": [
+            [
+                "31f9b3a.b583b4c"
+            ]
+        ]
+    },
+    {
+        "id": "4dff423f.59469c",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera8",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera8</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 880,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5efc2c87.119784",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 900,
+        "wires": [
+            [
+                "c05b16db.5eefb8"
+            ]
+        ]
+    },
+    {
+        "id": "4c3ece86.a75af",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.109/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 900,
+        "wires": [
+            [
+                "e1ea2be6.6f96f8",
+                "561222f0.7ce4bc"
+            ]
+        ]
+    },
+    {
+        "id": "e1ea2be6.6f96f8",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "c05b16db.5eefb8",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam9/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 900,
+        "wires": [
+            [
+                "e1a05f80.41444"
+            ]
+        ]
+    },
+    {
+        "id": "e1a05f80.41444",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 900,
+        "wires": [
+            [
+                "4c3ece86.a75af"
+            ]
+        ]
+    },
+    {
+        "id": "561222f0.7ce4bc",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera9",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera9</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 880,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "36664304.7264fc",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 1000,
+        "wires": [
+            [
+                "3675c8a8.34ecc8"
+            ]
+        ]
+    },
+    {
+        "id": "ac313198.de8f5",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.110/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 1000,
+        "wires": [
+            [
+                "c9f17aa7.8298f8",
+                "ab56579f.c4e5a8"
+            ]
+        ]
+    },
+    {
+        "id": "c9f17aa7.8298f8",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "3675c8a8.34ecc8",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam10/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 1000,
+        "wires": [
+            [
+                "529bb35a.ec616c"
+            ]
+        ]
+    },
+    {
+        "id": "529bb35a.ec616c",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 1000,
+        "wires": [
+            [
+                "ac313198.de8f5"
+            ]
+        ]
+    },
+    {
+        "id": "ab56579f.c4e5a8",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera10",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera10</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 890,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e459b03b.43f6b",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 1100,
+        "wires": [
+            [
+                "e6bc20b0.eb376"
+            ]
+        ]
+    },
+    {
+        "id": "dc78686.82c5a98",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.111/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 1100,
+        "wires": [
+            [
+                "b31300b5.67728",
+                "8301eb65.1a3698"
+            ]
+        ]
+    },
+    {
+        "id": "b31300b5.67728",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "e6bc20b0.eb376",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam11/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 1100,
+        "wires": [
+            [
+                "d7f34f04.e0988"
+            ]
+        ]
+    },
+    {
+        "id": "d7f34f04.e0988",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 1100,
+        "wires": [
+            [
+                "dc78686.82c5a98"
+            ]
+        ]
+    },
+    {
+        "id": "8301eb65.1a3698",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera11",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera11</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 890,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1cc5e491.520f6b",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 1220,
+        "wires": [
+            [
+                "ed942786.6078d8"
+            ]
+        ]
+    },
+    {
+        "id": "97dfce10.9f3c3",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.112/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 1220,
+        "wires": [
+            [
+                "b96cf865.33c198",
+                "ad4d21db.7692b"
+            ]
+        ]
+    },
+    {
+        "id": "b96cf865.33c198",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "ed942786.6078d8",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam12/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 1220,
+        "wires": [
+            [
+                "ad48c9f3.b32fd8"
+            ]
+        ]
+    },
+    {
+        "id": "ad48c9f3.b32fd8",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 1220,
+        "wires": [
+            [
+                "97dfce10.9f3c3"
+            ]
+        ]
+    },
+    {
+        "id": "ad4d21db.7692b",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera12",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera12</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 890,
+        "y": 1260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ff2a5ffe.60459",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 1320,
+        "wires": [
+            [
+                "9d33fe32.c0a8d"
+            ]
+        ]
+    },
+    {
+        "id": "10fb8e86.28b7c1",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.113/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 1320,
+        "wires": [
+            [
+                "94e6dcf6.da0de",
+                "4464ec1f.850b54"
+            ]
+        ]
+    },
+    {
+        "id": "94e6dcf6.da0de",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "9d33fe32.c0a8d",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam13/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 1320,
+        "wires": [
+            [
+                "d6338fbf.f71fd"
+            ]
+        ]
+    },
+    {
+        "id": "d6338fbf.f71fd",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 1320,
+        "wires": [
+            [
+                "10fb8e86.28b7c1"
+            ]
+        ]
+    },
+    {
+        "id": "4464ec1f.850b54",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera13",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera13</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 890,
+        "y": 1360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2024ff87.941fc",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.114/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 1420,
+        "wires": [
+            [
+                "6365b5c9.532dac",
+                "c5c92195.08523"
+            ]
+        ]
+    },
+    {
+        "id": "6365b5c9.532dac",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "c2e54b03.855c98",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam14/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 1420,
+        "wires": [
+            [
+                "cd4b60d9.ca526"
+            ]
+        ]
+    },
+    {
+        "id": "cd4b60d9.ca526",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 1420,
+        "wires": [
+            [
+                "2024ff87.941fc"
+            ]
+        ]
+    },
+    {
+        "id": "c5c92195.08523",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera14",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera14</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 890,
+        "y": 1460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "96f6bfb2.d633",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 1520,
+        "wires": [
+            [
+                "facdb698.5dcc68"
+            ]
+        ]
+    },
+    {
+        "id": "5cc78c81.135944",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.115/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 1520,
+        "wires": [
+            [
+                "ea262c40.44cec",
+                "50c7e299.bc93fc"
+            ]
+        ]
+    },
+    {
+        "id": "ea262c40.44cec",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "facdb698.5dcc68",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam15/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 1520,
+        "wires": [
+            [
+                "e68cf7ec.e83df8"
+            ]
+        ]
+    },
+    {
+        "id": "e68cf7ec.e83df8",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 1520,
+        "wires": [
+            [
+                "5cc78c81.135944"
+            ]
+        ]
+    },
+    {
+        "id": "50c7e299.bc93fc",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera15",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera15</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 890,
+        "y": 1560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "72f6eb8a.0854a4",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 1620,
+        "wires": [
+            [
+                "badec354.c2ec9"
+            ]
+        ]
+    },
+    {
+        "id": "4a9884e.2c7727c",
+        "type": "imageSimple",
+        "z": "c729a231.46e68",
+        "imageData": "http://10.10.10.116/capture",
+        "imageType": "str",
+        "autoresize": false,
+        "original": true,
+        "localfile": false,
+        "flipX": false,
+        "flipY": true,
+        "width": "1600",
+        "height": "1200",
+        "rotate": 0,
+        "crop": true,
+        "cropX": 0,
+        "cropY": 0,
+        "cropWidth": "200",
+        "cropHeight": "200",
+        "x": 730,
+        "y": 1620,
+        "wires": [
+            [
+                "1449a6c5.19b2a9",
+                "f542bf84.e4138"
+            ]
+        ]
+    },
+    {
+        "id": "1449a6c5.19b2a9",
+        "type": "debug",
+        "z": "c729a231.46e68",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "badec354.c2ec9",
+        "type": "change",
+        "z": "c729a231.46e68",
+        "name": "Set destination ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "localFilename",
+                "pt": "msg",
+                "to": "/home/pi/Documents/Photos/cam16/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "[name]",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 1620,
+        "wires": [
+            [
+                "8df0cc47.420c9"
+            ]
+        ]
+    },
+    {
+        "id": "8df0cc47.420c9",
+        "type": "function",
+        "z": "c729a231.46e68",
+        "name": "Set dynamic name",
+        "func": "var theDate = new Date(msg.payload );\nmsg.localFilename=msg.localFilename+theDate.toString()\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 1620,
+        "wires": [
+            [
+                "4a9884e.2c7727c"
+            ]
+        ]
+    },
+    {
+        "id": "f542bf84.e4138",
+        "type": "ui_template",
+        "z": "c729a231.46e68",
+        "group": "c638a2ae.860d7",
+        "name": "Camera16",
+        "order": 0,
+        "width": "6",
+        "height": "1",
+        "format": "<div>\n    <a href=\"http://192.168.137.102/capture\"><span>Camera16</span></a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 890,
+        "y": 1660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9156e988.ace678",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 600,
+        "wires": [
+            [
+                "30e4e6d6.fda5ba"
+            ]
+        ]
+    },
+    {
+        "id": "4a14259.dcd0adc",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "0 9-18 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 700,
+        "wires": [
+            [
+                "5ba95813.cd01b8"
+            ]
+        ]
+    },
+    {
+        "id": "11cc54b0.79543b",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "0 9-18 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 1420,
+        "wires": [
+            [
+                "c2e54b03.855c98"
+            ]
+        ]
+    },
+    {
+        "id": "5c5c2114.45ee7",
+        "type": "inject",
+        "z": "c729a231.46e68",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "0 9-18 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 800,
+        "wires": [
+            [
+                "84617638.459ad8"
+            ]
+        ]
+    },
+    {
+        "id": "c638a2ae.860d7",
+        "type": "ui_group",
+        "name": "Cameras snapshot ",
+        "tab": "4ac46435.3c261c",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "4ac46435.3c261c",
+        "type": "ui_tab",
+        "name": "Sensors",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

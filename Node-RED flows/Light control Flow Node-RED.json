@@ -1,0 +1,1614 @@
+[
+    {
+        "id": "69796ee.973519",
+        "type": "tab",
+        "label": "Light control flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "23bd81ed.4f2c9e",
+        "type": "mqtt out",
+        "z": "69796ee.973519",
+        "name": "",
+        "topic": "Control_board1/Light_red",
+        "qos": "2",
+        "retain": "false",
+        "broker": "27903ab0.ddf166",
+        "x": 1150,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "118d8cae.1c8a13",
+        "type": "rbe",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 750,
+        "y": 140,
+        "wires": [
+            [
+                "23bd81ed.4f2c9e",
+                "4c850176.fe127",
+                "6a8841d2.eee0f",
+                "48f260de.b5747"
+            ]
+        ]
+    },
+    {
+        "id": "119e0c48.4a9224",
+        "type": "inject",
+        "z": "69796ee.973519",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "c08b76f4.1f0f78"
+            ]
+        ]
+    },
+    {
+        "id": "a8faeb52.29dc78",
+        "type": "csv",
+        "z": "69796ee.973519",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "1",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 410,
+        "y": 140,
+        "wires": [
+            [
+                "e8c3cb01.7c0188",
+                "1e8cc46e.6a4e3c"
+            ]
+        ]
+    },
+    {
+        "id": "c08b76f4.1f0f78",
+        "type": "template",
+        "z": "69796ee.973519",
+        "name": "CSV data",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "# This is some random data\nTime,Load\n0,255\n1,180\n2,255\n3,180\n4,0\n5,50\n6,100\n7,200\n8,0\n9,200\n10,0\n11,0\n12,255\n13,255\n14,0\n15,0\n16,150\n17,150\n18,130\n19,0\n20,255\n21,255\n22,255\n23,0",
+        "output": "str",
+        "x": 260,
+        "y": 140,
+        "wires": [
+            [
+                "a8faeb52.29dc78"
+            ]
+        ]
+    },
+    {
+        "id": "e8c3cb01.7c0188",
+        "type": "function",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "var timeStamp=Date.now();\nvar theDate = new Date(timeStamp);\n//var theHour= theDate.getHours();\nvar theHour= theDate.getSeconds();\nif (theHour>=24){theHour=23}\nvar index =  msg.payload.findIndex(obj => obj.Time==theHour);\nvar value= msg.payload[index];\nmsg.payload=value;\nmsg.payload=String(msg.payload.Load);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 560,
+        "y": 140,
+        "wires": [
+            [
+                "118d8cae.1c8a13",
+                "9d2870d7.30e0c"
+            ]
+        ]
+    },
+    {
+        "id": "1e8cc46e.6a4e3c",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "9d2870d7.30e0c",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "6a8841d2.eee0f",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4c850176.fe127",
+        "type": "ui_gauge",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "3faa8737.4aa728",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Controller 1 red",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1120,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "48f260de.b5747",
+        "type": "ui_chart",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "3faa8737.4aa728",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Controller 1 red",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 1120,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6dabe0bf.c567c",
+        "type": "mqtt out",
+        "z": "69796ee.973519",
+        "name": "",
+        "topic": "Control_board1/Light_blue",
+        "qos": "2",
+        "retain": "false",
+        "broker": "27903ab0.ddf166",
+        "x": 1160,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "2ce91e50.02f212",
+        "type": "rbe",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 750,
+        "y": 365,
+        "wires": [
+            [
+                "6dabe0bf.c567c",
+                "e8fd0528.d40d28",
+                "a2637808.ff9658",
+                "68ef9445.7aa88c"
+            ]
+        ]
+    },
+    {
+        "id": "e5a60f49.e3fc1",
+        "type": "inject",
+        "z": "69796ee.973519",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 365,
+        "wires": [
+            [
+                "26364ac.1afa2b6"
+            ]
+        ]
+    },
+    {
+        "id": "b24beef6.56eae",
+        "type": "csv",
+        "z": "69796ee.973519",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "1",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 410,
+        "y": 365,
+        "wires": [
+            [
+                "32921906.430476",
+                "c35075e7.7ecff8"
+            ]
+        ]
+    },
+    {
+        "id": "26364ac.1afa2b6",
+        "type": "template",
+        "z": "69796ee.973519",
+        "name": "CSV data",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "# This is some random data\nTime,Load\n0,255\n1,180\n2,255\n3,180\n4,0\n5,50\n6,100\n7,200\n8,0\n9,200\n10,0\n11,0\n12,255\n13,255\n14,0\n15,0\n16,150\n17,150\n18,130\n19,0\n20,255\n21,255\n22,255\n23,0",
+        "output": "str",
+        "x": 260,
+        "y": 365,
+        "wires": [
+            [
+                "b24beef6.56eae"
+            ]
+        ]
+    },
+    {
+        "id": "32921906.430476",
+        "type": "function",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "var timeStamp=Date.now();\nvar theDate = new Date(timeStamp);\n//var theHour= theDate.getHours();\nvar theHour= theDate.getSeconds();\nif (theHour>=24){theHour=23}\nvar index =  msg.payload.findIndex(obj => obj.Time==theHour);\nvar value= msg.payload[index];\nmsg.payload=value;\nmsg.payload=String(msg.payload.Load);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 560,
+        "y": 365,
+        "wires": [
+            [
+                "2ce91e50.02f212",
+                "dec0c645.e47728"
+            ]
+        ]
+    },
+    {
+        "id": "c35075e7.7ecff8",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 285,
+        "wires": []
+    },
+    {
+        "id": "dec0c645.e47728",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 325,
+        "wires": []
+    },
+    {
+        "id": "a2637808.ff9658",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 385,
+        "wires": []
+    },
+    {
+        "id": "e8fd0528.d40d28",
+        "type": "ui_gauge",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "3faa8737.4aa728",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Controller 1 blue",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1120,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "68ef9445.7aa88c",
+        "type": "ui_chart",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "3faa8737.4aa728",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Controller 1 blue",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 1120,
+        "y": 425,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7feefc3f.b70c24",
+        "type": "mqtt out",
+        "z": "69796ee.973519",
+        "name": "",
+        "topic": "Control_board2/Light_red",
+        "qos": "2",
+        "retain": "false",
+        "broker": "27903ab0.ddf166",
+        "x": 1150,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "2a4b65eb.361f4a",
+        "type": "rbe",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 750,
+        "y": 575,
+        "wires": [
+            [
+                "7feefc3f.b70c24",
+                "471b4d5d.d971e4",
+                "11afe93a.3ac6b7",
+                "d49d0b8.ed755f8"
+            ]
+        ]
+    },
+    {
+        "id": "498b5439.14430c",
+        "type": "inject",
+        "z": "69796ee.973519",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 575,
+        "wires": [
+            [
+                "91c617b0.075a78"
+            ]
+        ]
+    },
+    {
+        "id": "f81f0d9.745fff",
+        "type": "csv",
+        "z": "69796ee.973519",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "1",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 410,
+        "y": 575,
+        "wires": [
+            [
+                "9392161c.17eab8",
+                "752d02ef.7cd79c"
+            ]
+        ]
+    },
+    {
+        "id": "91c617b0.075a78",
+        "type": "template",
+        "z": "69796ee.973519",
+        "name": "CSV data",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "# This is some random data\nTime,Load\n0,255\n1,180\n2,255\n3,180\n4,0\n5,50\n6,100\n7,200\n8,0\n9,200\n10,0\n11,0\n12,255\n13,255\n14,0\n15,0\n16,150\n17,150\n18,130\n19,0\n20,255\n21,255\n22,255\n23,0",
+        "output": "str",
+        "x": 260,
+        "y": 575,
+        "wires": [
+            [
+                "f81f0d9.745fff"
+            ]
+        ]
+    },
+    {
+        "id": "9392161c.17eab8",
+        "type": "function",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "var timeStamp=Date.now();\nvar theDate = new Date(timeStamp);\n//var theHour= theDate.getHours();\nvar theHour= theDate.getSeconds();\nif (theHour>=24){theHour=23}\nvar index =  msg.payload.findIndex(obj => obj.Time==theHour);\nvar value= msg.payload[index];\nmsg.payload=value;\nmsg.payload=String(msg.payload.Load);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 560,
+        "y": 575,
+        "wires": [
+            [
+                "2a4b65eb.361f4a",
+                "f824963d.3fbe78"
+            ]
+        ]
+    },
+    {
+        "id": "752d02ef.7cd79c",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 495,
+        "wires": []
+    },
+    {
+        "id": "f824963d.3fbe78",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 535,
+        "wires": []
+    },
+    {
+        "id": "11afe93a.3ac6b7",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 595,
+        "wires": []
+    },
+    {
+        "id": "471b4d5d.d971e4",
+        "type": "ui_gauge",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "75393491.41794c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Controller 2 red",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1120,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "d49d0b8.ed755f8",
+        "type": "ui_chart",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "75393491.41794c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Controller 2 red",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 1120,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bb92ebe3.c51358",
+        "type": "mqtt out",
+        "z": "69796ee.973519",
+        "name": "",
+        "topic": "Control_board2/Light_blue",
+        "qos": "2",
+        "retain": "false",
+        "broker": "27903ab0.ddf166",
+        "x": 1160,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "bb00f41b.fc2718",
+        "type": "rbe",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 750,
+        "y": 809,
+        "wires": [
+            [
+                "bb92ebe3.c51358",
+                "5c9de948.61c648",
+                "6d65d614.75e918",
+                "26b8a02f.5a568"
+            ]
+        ]
+    },
+    {
+        "id": "e63c61cd.76c04",
+        "type": "inject",
+        "z": "69796ee.973519",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 809,
+        "wires": [
+            [
+                "108a1210.d6e81e"
+            ]
+        ]
+    },
+    {
+        "id": "f145c159.01ae9",
+        "type": "csv",
+        "z": "69796ee.973519",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "1",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 410,
+        "y": 809,
+        "wires": [
+            [
+                "1e1a9000.8c3e",
+                "f6b331f0.50a36"
+            ]
+        ]
+    },
+    {
+        "id": "108a1210.d6e81e",
+        "type": "template",
+        "z": "69796ee.973519",
+        "name": "CSV data",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "# This is some random data\nTime,Load\n0,255\n1,180\n2,255\n3,180\n4,0\n5,50\n6,100\n7,200\n8,0\n9,200\n10,0\n11,0\n12,255\n13,255\n14,0\n15,0\n16,150\n17,150\n18,130\n19,0\n20,255\n21,255\n22,255\n23,0",
+        "output": "str",
+        "x": 260,
+        "y": 809,
+        "wires": [
+            [
+                "f145c159.01ae9"
+            ]
+        ]
+    },
+    {
+        "id": "1e1a9000.8c3e",
+        "type": "function",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "var timeStamp=Date.now();\nvar theDate = new Date(timeStamp);\n//var theHour= theDate.getHours();\nvar theHour= theDate.getSeconds();\nif (theHour>=24){theHour=23}\nvar index =  msg.payload.findIndex(obj => obj.Time==theHour);\nvar value= msg.payload[index];\nmsg.payload=value;\nmsg.payload=String(msg.payload.Load);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 560,
+        "y": 809,
+        "wires": [
+            [
+                "bb00f41b.fc2718",
+                "922772f5.8b49b"
+            ]
+        ]
+    },
+    {
+        "id": "f6b331f0.50a36",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 729,
+        "wires": []
+    },
+    {
+        "id": "922772f5.8b49b",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 769,
+        "wires": []
+    },
+    {
+        "id": "6d65d614.75e918",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "5c9de948.61c648",
+        "type": "ui_gauge",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "75393491.41794c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Controller 2 blue",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1120,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "26b8a02f.5a568",
+        "type": "ui_chart",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "75393491.41794c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Controller 2 blue",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 1120,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fcd6f918.fd60b8",
+        "type": "mqtt out",
+        "z": "69796ee.973519",
+        "name": "",
+        "topic": "Control_board3/Light_red",
+        "qos": "2",
+        "retain": "false",
+        "broker": "27903ab0.ddf166",
+        "x": 1150,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "886dea10.daa0d8",
+        "type": "rbe",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 750,
+        "y": 1032,
+        "wires": [
+            [
+                "fcd6f918.fd60b8",
+                "22e5fb42.8a4544",
+                "86476207.75059",
+                "a3750010.0c212"
+            ]
+        ]
+    },
+    {
+        "id": "d281154c.a1f758",
+        "type": "inject",
+        "z": "69796ee.973519",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 1032,
+        "wires": [
+            [
+                "770087a7.d91968"
+            ]
+        ]
+    },
+    {
+        "id": "7629cc5a.1412b4",
+        "type": "csv",
+        "z": "69796ee.973519",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "1",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 410,
+        "y": 1032,
+        "wires": [
+            [
+                "696e94d1.2650ac",
+                "814ecb3e.c05ff8"
+            ]
+        ]
+    },
+    {
+        "id": "770087a7.d91968",
+        "type": "template",
+        "z": "69796ee.973519",
+        "name": "CSV data",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "# This is some random data\nTime,Load\n0,255\n1,180\n2,255\n3,180\n4,0\n5,50\n6,100\n7,200\n8,0\n9,200\n10,0\n11,0\n12,255\n13,255\n14,0\n15,0\n16,150\n17,150\n18,130\n19,0\n20,255\n21,255\n22,255\n23,0",
+        "output": "str",
+        "x": 260,
+        "y": 1032,
+        "wires": [
+            [
+                "7629cc5a.1412b4"
+            ]
+        ]
+    },
+    {
+        "id": "696e94d1.2650ac",
+        "type": "function",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "var timeStamp=Date.now();\nvar theDate = new Date(timeStamp);\n//var theHour= theDate.getHours();\nvar theHour= theDate.getSeconds();\nif (theHour>=24){theHour=23}\nvar index =  msg.payload.findIndex(obj => obj.Time==theHour);\nvar value= msg.payload[index];\nmsg.payload=value;\nmsg.payload=String(msg.payload.Load);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 560,
+        "y": 1032,
+        "wires": [
+            [
+                "886dea10.daa0d8",
+                "4744dd9.a457b24"
+            ]
+        ]
+    },
+    {
+        "id": "814ecb3e.c05ff8",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 952,
+        "wires": []
+    },
+    {
+        "id": "4744dd9.a457b24",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 992,
+        "wires": []
+    },
+    {
+        "id": "86476207.75059",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "22e5fb42.8a4544",
+        "type": "ui_gauge",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "d6868925.7b50e8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Controller 3 red",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1120,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "a3750010.0c212",
+        "type": "ui_chart",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "d6868925.7b50e8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Controller 3 red",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 1120,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dd10aeb9.23197",
+        "type": "mqtt out",
+        "z": "69796ee.973519",
+        "name": "",
+        "topic": "Control_board3/Light_blue",
+        "qos": "2",
+        "retain": "false",
+        "broker": "27903ab0.ddf166",
+        "x": 1160,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "2b5e76ab.4c6fba",
+        "type": "rbe",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 750,
+        "y": 1260,
+        "wires": [
+            [
+                "dd10aeb9.23197",
+                "76f3fb57.6a8964",
+                "562dedae.649d94",
+                "56a1c0ed.a8eb"
+            ]
+        ]
+    },
+    {
+        "id": "dac69059.35a03",
+        "type": "inject",
+        "z": "69796ee.973519",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 1260,
+        "wires": [
+            [
+                "92142d69.46542"
+            ]
+        ]
+    },
+    {
+        "id": "fcbe9a1a.4f4988",
+        "type": "csv",
+        "z": "69796ee.973519",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "1",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 410,
+        "y": 1260,
+        "wires": [
+            [
+                "ce1bf541.94ce88",
+                "b5e0eaf.9893518"
+            ]
+        ]
+    },
+    {
+        "id": "92142d69.46542",
+        "type": "template",
+        "z": "69796ee.973519",
+        "name": "CSV data",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "# This is some random data\nTime,Load\n0,255\n1,180\n2,255\n3,180\n4,0\n5,50\n6,100\n7,200\n8,0\n9,200\n10,0\n11,0\n12,255\n13,255\n14,0\n15,0\n16,150\n17,150\n18,130\n19,0\n20,255\n21,255\n22,255\n23,0",
+        "output": "str",
+        "x": 260,
+        "y": 1260,
+        "wires": [
+            [
+                "fcbe9a1a.4f4988"
+            ]
+        ]
+    },
+    {
+        "id": "ce1bf541.94ce88",
+        "type": "function",
+        "z": "69796ee.973519",
+        "name": "",
+        "func": "var timeStamp=Date.now();\nvar theDate = new Date(timeStamp);\n//var theHour= theDate.getHours();\nvar theHour= theDate.getSeconds();\nif (theHour>=24){theHour=23}\nvar index =  msg.payload.findIndex(obj => obj.Time==theHour);\nvar value= msg.payload[index];\nmsg.payload=value;\nmsg.payload=String(msg.payload.Load);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 560,
+        "y": 1260,
+        "wires": [
+            [
+                "2b5e76ab.4c6fba",
+                "8baec69e.4b10d8"
+            ]
+        ]
+    },
+    {
+        "id": "b5e0eaf.9893518",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "8baec69e.4b10d8",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "562dedae.649d94",
+        "type": "debug",
+        "z": "69796ee.973519",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "76f3fb57.6a8964",
+        "type": "ui_gauge",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "d6868925.7b50e8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Controller 3 blue",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "255",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 1120,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "56a1c0ed.a8eb",
+        "type": "ui_chart",
+        "z": "69796ee.973519",
+        "name": "",
+        "group": "d6868925.7b50e8",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Controller 3 blue",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 1120,
+        "y": 1320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "62626f0a.bf2d7",
+        "type": "inject",
+        "z": "69796ee.973519",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "115",
+        "payloadType": "str",
+        "x": 840,
+        "y": 260,
+        "wires": [
+            [
+                "6dabe0bf.c567c"
+            ]
+        ]
+    },
+    {
+        "id": "c0cc9e0f.c07d",
+        "type": "inject",
+        "z": "69796ee.973519",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "250",
+        "payloadType": "str",
+        "x": 830,
+        "y": 60,
+        "wires": [
+            [
+                "23bd81ed.4f2c9e"
+            ]
+        ]
+    },
+    {
+        "id": "befbe067.33662",
+        "type": "inject",
+        "z": "69796ee.973519",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "x": 820,
+        "y": 200,
+        "wires": [
+            [
+                "23bd81ed.4f2c9e"
+            ]
+        ]
+    },
+    {
+        "id": "27903ab0.ddf166",
+        "type": "mqtt-broker",
+        "name": "TEST",
+        "broker": "10.10.10.197",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "3faa8737.4aa728",
+        "type": "ui_group",
+        "name": "Control light 1",
+        "tab": "39a579c1.ffc346",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": true
+    },
+    {
+        "id": "75393491.41794c",
+        "type": "ui_group",
+        "name": "Control light 2",
+        "tab": "39a579c1.ffc346",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": true
+    },
+    {
+        "id": "d6868925.7b50e8",
+        "type": "ui_group",
+        "name": "Control light 3",
+        "tab": "39a579c1.ffc346",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": true
+    },
+    {
+        "id": "39a579c1.ffc346",
+        "type": "ui_tab",
+        "name": "Control",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
